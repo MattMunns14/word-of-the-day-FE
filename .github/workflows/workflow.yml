@@ -1,10 +1,10 @@
 # Read more about setting it up
 # https://medium.com/@ljmocic/deploying-react-application-to-aws-s3-using-github-actions-85addacaeace
 
+
 on:
   push:
-    tags:
-      - 'main'
+    branches: [ main ]
 
 jobs:
   build:
