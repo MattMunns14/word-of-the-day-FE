@@ -1,3 +1,4 @@
-# word-of-the-day-FE
+#Words of the Day!
 
-Repo for frontend code for word-of-the-day.com
+Repo for frontend of wordsoftheday.org
+
