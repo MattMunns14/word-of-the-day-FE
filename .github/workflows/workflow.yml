@@ -52,5 +52,5 @@ jobs:
       - name: Deploy to S3
         run: |
           npm run build
-          aws s3 sync . ${{ secrets.AWS_S3_BUCKET }} --acl public-read
+          aws s3 sync ./build ${{ secrets.AWS_S3_BUCKET }} --acl public-read
         working-directory: words-of-the-day
