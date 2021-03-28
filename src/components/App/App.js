@@ -1,29 +1,67 @@
 import './App.css';
-import React,  { useState } from 'react';
+import React,  { Component } from 'react';
 import Dashboard from "../Dashboard/Dashboard";
-import Login from "../Login/Login";
 import Registration from "../Registration/Registration";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
 
 
-function App() {
+export default class App extends Component {
+    constructor() {
+        super();
 
-    const [token, setToken] = useState()
+        this.state = {
+            loggedIn: false,
+            user: '',
+            loginScreen: 'login'
+        };
+        this.handleLogin = this.handleLogin.bind(this)
+        this.handleLogout = this.handleLogout.bind(this)
+    };
 
-    if (token) {
-        return (
-            <Dashboard/>
-        )
+    checkLoginStatus() {
+        console.log('Checked login status');
+    };
+
+    handleLogout() {
+        this.setState({
+            loggedIn:false,
+            user: ''
+        });
     }
 
-    return (
-        <div className="App">
-        Welcome to words of the day!
-        <h1>Login</h1>
-            {/*<Login setToken={setToken}/>*/}
-            <Registration/>
+    handleLogin(data) {
+        this.setState({
+            loggedInStatus: true,
+            user: ''
+        });
+    }
 
-        </div>
-    );
+    componentDidMount() {
+        this.checkLoginStatus();
+    };
+
+
+    render() {
+        if (this.state.loggedIn) {
+            return (
+                <Dashboard/>
+            )
+        }
+        else {
+            return (
+                <div className="App">
+                    <Container>
+                        <Navbar expand="lg" variant="light" bg="light">
+                            <Navbar.Brand >Words of the Day!</Navbar.Brand>
+                        </Navbar>
+                    </Container>
+                    <Registration/>
+                </div>
+            );
+
+        }
+
+    }
 }
 
-export default App;
