@@ -170,7 +170,7 @@ export default class Registration extends Component {
                         </Button>
 
                         <p className="forgot-password text-right">
-                            Or <a href="#" onClick={this.changeUse}>Sign Up?</a>
+                            <button class="btn btn-link" onClick={this.changeUse}>Sign Up</button>
                         </p>
                         {registrationAlert()}
                     </Form>
