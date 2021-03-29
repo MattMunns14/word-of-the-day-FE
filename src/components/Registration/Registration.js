@@ -126,7 +126,7 @@ export default class Registration extends Component {
 
                 if (this.state.registration_status === 'success'){
                     return(
-                        <Alert variant='sucess'>
+                        <Alert variant='success'>
                             <Alert.Heading>Registration Successful</Alert.Heading>
                         </Alert>
                     )
