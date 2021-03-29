@@ -113,7 +113,10 @@ export default class Registration extends Component {
             .catch(error => {console.log('error', error);
             })
         ;
-        event.preventDefault()
+        event.preventDefault();
+        this.setState( state=> ({
+            registration_status: null
+        }))
 
     };
 
