@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Registration.css';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 
 export default class Registration extends Component {
@@ -16,8 +17,7 @@ export default class Registration extends Component {
             password_confirmation: "",
             registrationErrors: "",
             isLogin: true,
-            registration_success_message: ''
-
+            registration_status: null
         }
 
         this.handleSubmitRegistration = this.handleSubmitRegistration.bind(this)
@@ -27,7 +27,6 @@ export default class Registration extends Component {
     }
 
     handleChange(event) {
-        console.log('got event')
         console.log(event)
         this.setState({
             [event.target.name]: event.target.value
@@ -35,7 +34,6 @@ export default class Registration extends Component {
     }
 
     changeUse(event) {
-        console.log('Changing use')
         this.setState(state => ({
             isLogin: !state.isLogin
         }))
@@ -52,25 +50,43 @@ export default class Registration extends Component {
         const headers = {
             'Content-Type': 'application/json',
         }
+
         axios.post('https://api.wordsoftheday.org/index-operation',
             data,
             headers,
             {withCredentials: true}
         )
-            .then(response => {console.log('registration res', response);
+            .then(response => {
+                console.log('registration res', response);
+                if(response.data.statusCode === 200){
+                    this.setState(state => ({
+                        registration_status: 'success'
+                    }));
+                }
+                else{
+                    this.setState(state => ({
+                        registration_status: 'failure'
+                    }));
+                }
             })
-            .catch(error => {console.log('error', error);
+            .catch(error => {
+                console.log('error', error);
+                this.setState(state => ({
+                    registration_status: 'failure'
+                }));
             })
         ;
         event.preventDefault();
+
+
         this.setState(state => ({
             isLogin: !state.isLogin,
             email: '',
-            password: '',
-            registration_success_message: String.format('Successfully registered user with email {0}', this.state.email)
+            password: ''
             })
 
         )
+        console.log(this.state.registration_status)
 
     }
 
@@ -86,7 +102,6 @@ export default class Registration extends Component {
             'Content-Type': 'application/json',
         }
 
-        console.log('Logged in with data', data);
 
         axios.post('https://api.wordsoftheday.org/index-operation',
             data,
@@ -103,10 +118,27 @@ export default class Registration extends Component {
     };
 
     render() {
+        const registrationAlert = () =>
+            {
+
+                if (this.state.registration_status === 'success'){
+                    return(
+                        <Alert variant='sucess'>
+                            <Alert.Heading>Registration Successful</Alert.Heading>
+                        </Alert>
+                    )
+                }
+                else if (this.state.registration_status === 'failure'){
+                    return(
+                        <Alert variant='danger'>
+                            <Alert.Heading>Registration Failed</Alert.Heading>
+                        </Alert>
+                    )
+                }
+            }
         if (this.state.isLogin) {
             return (
                 <div className="Login">
-                    {this.state.registration_success_message}
                     <h3>Login</h3>
 
                     <Form onSubmit={this.handleSubmitLogin}>
@@ -135,10 +167,11 @@ export default class Registration extends Component {
                         </Button>
 
                         <p className="forgot-password text-right">
-                            Forgot <a href="#">password?</a>
+                            Or <a href="#" onClick={this.changeUse}>Sign Up?</a>
                         </p>
-
+                        {registrationAlert()}
                     </Form>
+
                 </div>
             )
         }
@@ -146,7 +179,7 @@ export default class Registration extends Component {
             return (
                 <div className="Registration">
                     <h3>Sign Up</h3>
-                    <Form onSubmit={this.handleSubmitLogin}>
+                    <Form onSubmit={this.handleSubmitRegistration}>
                         <Form.Group size="lg" controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
@@ -186,75 +219,3 @@ export default class Registration extends Component {
     }
 }
 
-    // render() {
-    //     return (
-    //         <div>
-    //
-    //             <div/>
-    //             )
-    //
-    //         }
-    // //
-    // //     if (this.state.isLogin) {
-    //         return (
-    //
-    //             <div>
-    //                 <form onSubmit={this.handleSubmitLogin}>
-    //                     <input
-    //                         type="email"
-    //                         name="email"
-    //                         placeholder="Email"
-    //                         value={this.state.email}
-    //                         onChange={this.handleChange}
-    //                         required
-    //                     />
-    //                     <input
-    //                         type="password"
-    //                         name="password"
-    //                         placeholder="Password"
-    //                         value={this.state.password}
-    //                         onChange={this.handleChange}
-    //                         required
-    //                     />
-    //
-    //                     <button type="submit">Login</button>
-    //                 </form>
-    //                 <button onClick={this.changeUse}> Register </button>
-    //             </div>
-    //         )
-    //     }
-    //     else {
-    //         return (
-    //             <div>
-    //                 <form onSubmit={this.handleSubmitRegistration}>
-    //                     <input
-    //                         type="email"
-    //                         name="email"
-    //                         placeholder="Email"
-    //                         value={this.state.email}
-    //                         onChange={this.handleChange}
-    //                         required
-    //                     />
-    //                     <input
-    //                         type="password"
-    //                         name="password"
-    //                         placeholder="Password"
-    //                         value={this.state.password}
-    //                         onChange={this.handleChange}
-    //                         required
-    //                     />
-    //                     <input
-    //                         type="password"
-    //                         name="password_confirmation"
-    //                         placeholder="Confirm password"
-    //                         value={this.state.password_confirmation}
-    //                         onChange={this.handleChange}
-    //                         required
-    //                     />
-    //
-    //                     <button type="submit">Register</button>
-    //                 </form>
-    //             </div>
-    //         )
-    //     }
-    // }
