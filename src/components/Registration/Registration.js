@@ -58,7 +58,7 @@ export default class Registration extends Component {
         )
             .then(response => {
                 console.log('registration res', response);
-                if(response.data.statusCode === 200){
+                if(response.data.status === 200){
                     this.setState(state => ({
                         registration_status: 'success'
                     }));
