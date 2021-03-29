@@ -107,6 +107,8 @@ export default class Registration extends Component {
             return (
                 <div className="Login">
                     {this.state.registration_success_message}
+                    <h3>Login</h3>
+
                     <Form onSubmit={this.handleSubmitLogin}>
                         <Form.Group size="lg" controlId="email">
                             <Form.Label>Email</Form.Label>
@@ -131,7 +133,10 @@ export default class Registration extends Component {
                         <Button block size="lg" type="submit">
                             Login
                         </Button>
-                        <Button block size = "lg" onClick={this.changeUse}> Register </Button>
+
+                        <p className="forgot-password text-right">
+                            Forgot <a href="#">password?</a>
+                        </p>
 
                     </Form>
                 </div>
@@ -140,7 +145,7 @@ export default class Registration extends Component {
         else {
             return (
                 <div className="Registration">
-                    {this.state.registration_success_message}
+                    <h3>Sign Up</h3>
                     <Form onSubmit={this.handleSubmitLogin}>
                         <Form.Group size="lg" controlId="email">
                             <Form.Label>Email</Form.Label>
