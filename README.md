@@ -1,4 +1,4 @@
-#Words of the Day!
+# Words of the Day!
 
-Repo for frontend of wordsoftheday.org
+Repo for frontend of [wordsoftheday.org](https://wordsoftheday.org)
 
