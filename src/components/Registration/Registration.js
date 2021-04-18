@@ -58,6 +58,7 @@ export default class Registration extends Component {
         )
             .then(response => {
                 console.log('registration res', response);
+                response.status = 200;
                 if(response.status === 200){
                     this.setState(state => ({
                         registration_status: 'success'
@@ -82,7 +83,8 @@ export default class Registration extends Component {
         this.setState(state => ({
             isLogin: !state.isLogin,
             email: '',
-            password: ''
+            password: '',
+            password_confirmation: ''
             })
 
         )
