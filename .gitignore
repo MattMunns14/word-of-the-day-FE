@@ -11,6 +11,8 @@
 # production
 /build
 
+/src/build
+
 # misc
 .DS_Store
 .env.local
@@ -22,5 +24,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+<<<<<<< HEAD
 *.swp
 .idea
+.idea/
+words-of-the-day/build
+
