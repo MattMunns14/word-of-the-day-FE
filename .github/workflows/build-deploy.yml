@@ -20,3 +20,5 @@ jobs:
         run: npm install && npm run build
       - name: Deploy app build to S3 bucket
         run: aws s3 sync ./build/ ${{ secrets.AWS_S3_BUCKET }}
+      - name: Invalidate cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION_ID }}
