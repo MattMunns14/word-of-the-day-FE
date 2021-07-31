@@ -4,6 +4,7 @@ import './Registration.css';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import Cookies from "universal-cookie";
 
 
 export default class Registration extends Component {
@@ -111,6 +112,8 @@ export default class Registration extends Component {
             {withCredentials: true}
         )
             .then(response => {console.log('registration res', response);
+            const cookies = new Cookies()
+            cookies.set('auth_token', response['token'])
             })
             .catch(error => {console.log('error', error);
             })
