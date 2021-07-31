@@ -113,7 +113,8 @@ export default class Registration extends Component {
         )
             .then(response => {console.log('registration res', response);
             const cookies = new Cookies()
-            cookies.set('auth_token', response['token'])
+            cookies.set('auth_token', response['data']['token'])
+            console.log('cookie logged',cookies.get('auth_token') )
             })
             .catch(error => {console.log('error', error);
             })
