@@ -27,6 +27,7 @@ export default class Registration extends Component {
         this.changeUse = this.changeUse.bind(this)
     }
 
+
     handleChange(event) {
         console.log(event)
         this.setState({
