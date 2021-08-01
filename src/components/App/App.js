@@ -10,8 +10,21 @@ import axios from 'axios';
 
 
 function verifyToken(token){
+    var data = {
+        action: 'verify_token',
+        token_to_verify: token
+        
+    }
+    const headers = {
+        'Content-Type': 'application/json',
+    }
     console.log('will post:', token)
-    axios.post('www.example.com'
+    axios.post(
+        'https://api.wordsoftheday.org/index-operation',
+        data, 
+        headers, 
+        {withCredentials:true}
+
     )
 }
 
