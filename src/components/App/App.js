@@ -25,9 +25,8 @@ function verifyToken(token){
         {withCredentials:true}
 
     )
-    .then(response => {return true})
-
-    .catch(error => {return false})
+    .then((response)=> {return response.status})
+    .catch((error) => {return error.status})
 }
 
 export default class App extends Component {
@@ -48,7 +47,7 @@ export default class App extends Component {
         if (login_cookie.get('auth_token')) {
             let token = login_cookie.get('auth_token')
             console.log(verifyToken(token))
-            if (verifyToken(token)){
+            if (verifyToken(token)===200){
                 console.log('setting state')
                 this.setState({
                     loggedIn:true
