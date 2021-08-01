@@ -17,15 +17,13 @@ async function verifyToken(token){
     const headers = {
         'Content-Type': 'application/json',
     }
-    let statusCode;
     const result = await axios.post(
         'https://api.wordsoftheday.org/index-operation',
         data, 
         headers, 
         {withCredentials:true}
-
     )
-    const statusCode = await result.status
+    const statusCode = result.status
     return statusCode
 }
 
