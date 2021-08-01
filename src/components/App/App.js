@@ -23,7 +23,9 @@ async function verifyToken(token){
         headers, 
         {withCredentials:true}
     )
+    console.log(result)
     const statusCode = result.status
+    console.log('Status code from verification:', statusCode)
     return statusCode
 }
 
