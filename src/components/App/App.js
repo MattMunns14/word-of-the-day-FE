@@ -51,7 +51,7 @@ export default class App extends Component {
             console.log('we have an auth token')
             const statusCode = (async () => {console.log('calling verify token');
                 const statusCode = await verifyToken(token);
-                return statusCode})
+                return statusCode})()
             if (statusCode===200){
                 console.log('setting state')
                 this.setState({
