@@ -18,6 +18,7 @@ function verifyToken(token){
     const headers = {
         'Content-Type': 'application/json',
     }
+    let statusCode;
     axios.post(
         'https://api.wordsoftheday.org/index-operation',
         data, 
@@ -25,8 +26,10 @@ function verifyToken(token){
         {withCredentials:true}
 
     )
-    .then((response)=> {return response.status})
-    .catch((error) => {return error.status})
+    .then((response)=> {console.log(response);
+        statusCode = response.status})
+    .catch((error) => {statusCode =  error.status})
+    return statusCode
 }
 
 export default class App extends Component {
