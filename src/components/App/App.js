@@ -7,7 +7,27 @@ import Container from "react-bootstrap/Container";
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
+async function verifyToken(token){
+    var data = {
+        action: 'verify_token',
+        token_to_verify: token
+        
+    }
+    const headers = {
+        'Content-Type': 'application/json',
+    }
+    let statusCode;
+    await axios.post(
+        'https://api.wordsoftheday.org/index-operation',
+        data, 
+        headers, 
+        {withCredentials:true}
 
+    )
+    .then((response)=> {statusCode = response.status})
+    .catch((error) => {statusCode = error.status})
+    return statusCode
+}
 
 export default class App extends Component {
     constructor() {
@@ -26,28 +46,12 @@ export default class App extends Component {
         const login_cookie = new Cookies()
         if (login_cookie.get('auth_token')) {
             let token = login_cookie.get('auth_token')
-            var data = {
-                action: 'verify_token',
-                token_to_verify: token
-                
-            }
-            const headers = {
-                'Content-Type': 'application/json',
-            }
-            axios.post(
-                'https://api.wordsoftheday.org/index-operation',
-                data, 
-                headers, 
-                {withCredentials:true}
-        
-            )
-            .then((response)=> {
+            if (verifyToken(token)===200){
+                console.log('setting state')
                 this.setState({
                     loggedIn:true
                 })
-                
-            })
-            .catch((error) => {})
+            }
             }
         
 
