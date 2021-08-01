@@ -9,29 +9,6 @@ import axios from 'axios';
 
 
 
-function verifyToken(token){
-    var data = {
-        action: 'verify_token',
-        token_to_verify: token
-        
-    }
-    const headers = {
-        'Content-Type': 'application/json',
-    }
-    let statusCode;
-    axios.post(
-        'https://api.wordsoftheday.org/index-operation',
-        data, 
-        headers, 
-        {withCredentials:true}
-
-    )
-    .then((response)=> {console.log(response);
-        statusCode = response.status})
-    .catch((error) => {statusCode =  error.status})
-    return statusCode
-}
-
 export default class App extends Component {
     constructor() {
         super();
@@ -49,13 +26,28 @@ export default class App extends Component {
         const login_cookie = new Cookies()
         if (login_cookie.get('auth_token')) {
             let token = login_cookie.get('auth_token')
-            console.log('Token status code:', verifyToken(token))
-            if (verifyToken(token)===200){
-                console.log('setting state')
+            var data = {
+                action: 'verify_token',
+                token_to_verify: token
+                
+            }
+            const headers = {
+                'Content-Type': 'application/json',
+            }
+            axios.post(
+                'https://api.wordsoftheday.org/index-operation',
+                data, 
+                headers, 
+                {withCredentials:true}
+        
+            )
+            .then((response)=> {
                 this.setState({
                     loggedIn:true
                 })
-            }
+                
+            })
+            .catch((error) => {})
             }
         
 
