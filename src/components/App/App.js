@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 
 async function verifyToken(token){
+    console.log('trying to verify')
     var data = {
         action: 'verify_token',
         token_to_verify: token
@@ -44,8 +45,10 @@ export default class App extends Component {
 
     checkLoginStatus() {
         const login_cookie = new Cookies()
+        console.log('checking login')
         if (login_cookie.get('auth_token')) {
             let token = login_cookie.get('auth_token')
+            console.log('we have an auth token')
             const statusCode = (async () => {console.log('calling verify token');
                 const statusCode = await verifyToken(token);
                 return statusCode})
