@@ -18,7 +18,6 @@ function verifyToken(token){
     const headers = {
         'Content-Type': 'application/json',
     }
-    console.log('will post:', token)
     axios.post(
         'https://api.wordsoftheday.org/index-operation',
         data, 
@@ -26,6 +25,9 @@ function verifyToken(token){
         {withCredentials:true}
 
     )
+    .then(response => {return true})
+
+    .catch(error => {return false})
 }
 
 export default class App extends Component {
@@ -45,7 +47,6 @@ export default class App extends Component {
         const login_cookie = new Cookies()
         if (login_cookie.get('auth_token')) {
             let token = login_cookie.get('auth_token')
-            console.log('Trying to verify token', token)
             if (verifyToken(token)){
                 this.setState({
                     loggedIn:true
