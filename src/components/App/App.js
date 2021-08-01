@@ -47,6 +47,7 @@ export default class App extends Component {
         const login_cookie = new Cookies()
         if (login_cookie.get('auth_token')) {
             let token = login_cookie.get('auth_token')
+            console.log(verifyToken(token))
             if (verifyToken(token)){
                 console.log('setting state')
                 this.setState({
