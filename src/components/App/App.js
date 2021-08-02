@@ -45,7 +45,8 @@ export default class App extends Component {
         console.log('checking login')
         if (login_cookie.get('auth_token')) {
             let token = login_cookie.get('auth_token')
-            const status_code = (async () => {const statusCode = await verifyToken(token);return statusCode})()
+            const status_code = (async () => {const statusCode = await verifyToken(token); console.log(statusCode);
+                return statusCode})()
             console.log(status_code)
             if (status_code===200){
                 console.log('setting state')
