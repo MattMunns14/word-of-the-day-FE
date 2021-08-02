@@ -23,9 +23,7 @@ async function verifyToken(token){
         headers, 
         {withCredentials:true}
     )
-    console.log(result)
     const statusCode = result.status
-    console.log('Status code from verification:', statusCode)
     return statusCode
 }
 
@@ -47,11 +45,9 @@ export default class App extends Component {
         console.log('checking login')
         if (login_cookie.get('auth_token')) {
             let token = login_cookie.get('auth_token')
-            if (
-                (async () => {
-                    const statusCode = await verifyToken(token);
-                    return statusCode
-                })()===200){
+            status_code = (async () => {const statusCode = await verifyToken(token);return statusCode})()
+            console.log(status_code)
+            if (status_code===200){
                 console.log('setting state')
                 this.setState({
                     loggedIn:true
